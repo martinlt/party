@@ -5,8 +5,7 @@ Code here is based on the following class diagram:
 
 ![Party Class Model](/doc/party.png)
 
-This model allows for a flexible set of relationships that are controlled by creating instances of PartyType, RoleType and RoleTypeRelationship.
-
+This model allows for a flexible set of relationships that are controlled by creating instances of PartyType, RoleType and RoleTypeRelationship as follows:
 
 ## Identifiable Object
 This abstract class provides a mechanism for allocating unique ids to instances that require them. This removes the dependency on an external system (such as a database) to generate unique ids and allows the object model to be marshalled to XML with valid references.
@@ -44,6 +43,8 @@ The roles could be expressed as generic or as specific as a particular problem d
 ## RoleTypeRelationship
 This class defines what relationships are valid between roles and hence available as PartyRelationships.
 
+## PartyConfig
+This class acts as a wrapper for the configuration classes, providing a simple means to serialize or marshal the data.
 
-
-
+## PartyRelationship
+This is the core class for this model, and effectively becomes an "instance" of a RoleTypeRelationship. 
