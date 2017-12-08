@@ -1,5 +1,5 @@
 # Party
-This is an implementation of the solution architect pattern for party, addressing the universal theme of relationships between people and organisations.
+This is an implementation of the agile architect's pattern for party, addressing the universal theme of relationships between people and organisations.
 
 The is based on the following class diagram:
 
