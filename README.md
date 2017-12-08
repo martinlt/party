@@ -3,7 +3,7 @@ This is an implementation of my first agile architect's pattern, addressing the 
 
 Code here is based on the following class diagram:
 
-<img src="doc/party.png" width="50%" height="50%" />
+<img src="doc/party.png" width="100%" height="100%" />
 
 This model allows for a flexible set of relationships that are controlled by creating instances of PartyType, RoleType and RoleTypeRelationship as follows:
 
