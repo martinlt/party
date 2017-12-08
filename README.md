@@ -3,10 +3,7 @@ This is an implementation of my first agile architect's pattern, addressing the 
 
 Code here is based on the following class diagram:
 
-![Party Class Model](/doc/party.png)
 ![Party Class Model](/doc/party.png){:class="img-responsive"}
-![Party Class Model](/doc/party.png){:height="50%" width="50%"}
-![Party Class Model](/doc/party.png){:height="4474px" width="2877px"}
 
 This model allows for a flexible set of relationships that are controlled by creating instances of PartyType, RoleType and RoleTypeRelationship as follows:
 
