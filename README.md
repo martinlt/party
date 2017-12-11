@@ -31,7 +31,7 @@ This model allows for a flexible set of relationships that are controlled by cre
 
    This class defines which roles are valid for Parties to assume as part of a relationship to another Party. Some examples of possible roles include:
    - Customer
-   - Suppler
+   - Supplier
    - Teacher
    - Learner
    - Employer
