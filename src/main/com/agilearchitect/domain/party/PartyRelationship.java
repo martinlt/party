@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @XmlRootElement(name = "partyRelationship")
 @XmlAccessorType(XmlAccessType.NONE)
@@ -40,17 +41,19 @@ public class PartyRelationship extends IdentifiableObject
 
    @XmlElement
    @XmlJavaTypeAdapter(DateAdapter.class)
+   @JsonIgnore
    public LocalDate getEffectiveFrom()
    {
       return effectiveFrom;
    }
+
 
    public void setEffectiveFrom(LocalDate effectiveFrom)
    {
       this.effectiveFrom = effectiveFrom;
    }
 
-   @JsonIgnore
+   @JsonProperty("effectiveFrom")
    public String getEffectiveFromString()
    {
       if(effectiveFrom == null)
@@ -61,6 +64,7 @@ public class PartyRelationship extends IdentifiableObject
 
    @XmlElement
    @XmlJavaTypeAdapter(DateAdapter.class)
+   @JsonIgnore
    public LocalDate getEffectiveTo()
    {
       return effectiveTo;
@@ -71,7 +75,7 @@ public class PartyRelationship extends IdentifiableObject
       this.effectiveTo = effectiveTo;
    }
 
-   @JsonIgnore
+   @JsonProperty("effectiveTo")
    public String getEffectiveToString()
    {
       if(effectiveTo == null)

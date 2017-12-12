@@ -106,6 +106,7 @@ public class ApplicationController
    private void handleNewOrganisation()
    {
       Organisation organisation = new Organisation();
+
       boolean okClicked = appl.showOrganisationDialog(organisation);
       if (okClicked) {
          state.addOrganisation(organisation);
@@ -120,6 +121,7 @@ public class ApplicationController
    private void handleNewPerson()
    {
       Person person = new Person();
+
       boolean okClicked = appl.showPersonDialog(person);
       if (okClicked) {
          state.addPerson(person);

@@ -2,7 +2,6 @@ package com.agilearchitect.ui.party;
 
 import com.agilearchitect.domain.party.Party;
 import com.agilearchitect.domain.party.PartyRelationship;
-import com.agilearchitect.domain.party.Person;
 import com.agilearchitect.domain.party.RoleType;
 import com.agilearchitect.domain.party.RoleTypeRelationship;
 
@@ -14,7 +13,6 @@ import javafx.stage.Stage;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class RelationshipController
 {

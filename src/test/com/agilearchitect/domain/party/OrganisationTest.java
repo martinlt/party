@@ -16,9 +16,7 @@ public class OrganisationTest
    @Test
    public void createOrganisation()
    {
-      PartyConfig config = PartyConfig.loadConfig();
-
-      Organisation party = new Organisation(config.getPartyTypes().get(0), "ABC Company Ltd");
+      Organisation party = new Organisation("ABC Company Ltd");
 
       try {
          JAXBContext jaxbContext = JAXBContext.newInstance(Organisation.class);
@@ -35,7 +33,8 @@ public class OrganisationTest
 
          party = (Organisation) u.unmarshal(xmlFile);
 
-         assertEquals("organisation name should match", party.getOrganisationName(), "ABC Company Ltd");
+         assertEquals("organisation name should match", party.getOrganisationName(),
+               "ABC Company Ltd");
 
       } catch (Exception e) {
          throw new IllegalStateException(e);

@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @XmlRootElement(name = "partyconfig")
 @XmlAccessorType(XmlAccessType.NONE)
 public class PartyConfig
@@ -32,6 +34,24 @@ public class PartyConfig
    public void addPartyType(PartyType type)
    {
       this.partyTypes.add(type);
+   }
+
+   @JsonIgnore
+   public PartyType getPersonType() {
+      for(PartyType pt : partyTypes) {
+         if(pt.getDescription().equals("Person"))
+            return pt;
+      }
+      return null;
+   }
+
+   @JsonIgnore
+   public PartyType getOrganisationType() {
+      for(PartyType pt : partyTypes) {
+         if(pt.getDescription().equals("Organisation"))
+            return pt;
+      }
+      return null;
    }
 
    public void addRoleType(RoleType type)

@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @XmlRootElement(name = "person")
 @XmlAccessorType(XmlAccessType.NONE)
@@ -23,11 +24,9 @@ public class Person extends Party
    {
    }
 
-   public Person(PartyType type, String givenName, String familyName, LocalDate dateOfBirth,
+   public Person(String givenName, String familyName, LocalDate dateOfBirth,
          LocalDate dateOfDeath)
    {
-      super(type);
-
       this.familyName = familyName;
       this.givenName = givenName;
       this.dateOfBirth = dateOfBirth;
@@ -58,12 +57,13 @@ public class Person extends Party
 
    @XmlElement
    @XmlJavaTypeAdapter(DateAdapter.class)
+   @JsonIgnore
    public LocalDate getDateOfBirth()
    {
       return dateOfBirth;
    }
 
-   @JsonIgnore
+   @JsonProperty("dateOfBirth")
    public String getDateOfBirthString()
    {
       if(dateOfBirth == null)
@@ -79,12 +79,13 @@ public class Person extends Party
 
    @XmlElement
    @XmlJavaTypeAdapter(DateAdapter.class)
+   @JsonIgnore
    public LocalDate getDateOfDeath()
    {
       return dateOfDeath;
    }
 
-   @JsonIgnore
+   @JsonProperty("dateOfDeath")
    public String getDateOfDeathString()
    {
       if(dateOfDeath == null)

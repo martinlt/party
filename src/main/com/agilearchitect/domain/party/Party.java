@@ -11,8 +11,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 abstract public class Party extends IdentifiableObject
 {
-   private PartyType type;
-
    private List<PartyRelationship> fromRelationships = new ArrayList<PartyRelationship>();
    private List<PartyRelationship> toRelationships = new ArrayList<PartyRelationship>();
 
@@ -63,21 +61,6 @@ abstract public class Party extends IdentifiableObject
             return true;
       }
       return false;
-   }
-
-   public Party(PartyType type)
-   {
-      this.type = type;
-   }
-
-   public PartyType getType()
-   {
-      return this.type;
-   }
-
-   public void setType(PartyType type)
-   {
-      this.type = type;
    }
 
    @Override

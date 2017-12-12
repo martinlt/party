@@ -99,12 +99,13 @@ public class ApplicationState
          Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
          jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-         // marshal to a file
+         // marshal to file as xml
          jaxbMarshaller.marshal(this, xmlFile);
 
+         // marshal to file as json
          ObjectMapper objectMapper = new ObjectMapper();
-         String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
-         System.out.println(json);
+         objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("applicationstate.json"), this);
+
       } catch (Exception e) {
          throw new IllegalStateException(e);
       }

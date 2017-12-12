@@ -17,10 +17,7 @@ public class PersonTest
    @Test
    public void createPerson()
    {
-      PartyConfig config = PartyConfig.loadConfig();
-
-      Person party = new Person(config.getPartyTypes().get(1), "John", "Doe",
-            LocalDate.of(1970, Month.MARCH, 1), null);
+      Person party = new Person("John", "Doe", LocalDate.of(1970, Month.MARCH, 1), null);
 
       try {
          JAXBContext jaxbContext = JAXBContext.newInstance(Person.class);

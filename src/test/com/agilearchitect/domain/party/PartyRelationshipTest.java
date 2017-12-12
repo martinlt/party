@@ -17,17 +17,17 @@ import com.agilearchitect.ui.party.ApplicationState;
 public class PartyRelationshipTest
 {
    @Test
-   public void createRelationship() {
+   public void createRelationship()
+   {
       PartyConfig config = PartyConfig.loadConfig();
 
       ApplicationState state = new ApplicationState();
 
-      Organisation party1 = new Organisation(config.getPartyTypes().get(0), "ABC Company Ltd");
-      Person party2 = new Person(config.getPartyTypes().get(1), "John", "Doe",
-            LocalDate.of(1970, Month.MARCH, 1), null);
+      Organisation party1 = new Organisation("ABC Company Ltd");
+      Person party2 = new Person("John", "Doe", LocalDate.of(1970, Month.MARCH, 1), null);
 
-      PartyRelationship relationship = new PartyRelationship(LocalDate.now(), null, party1,
-            party2, config.getRoleTypeRelationships().get(0));
+      PartyRelationship relationship = new PartyRelationship(LocalDate.now(), null, party1, party2,
+            config.getRoleTypeRelationships().get(0));
 
       state.setConfig(config);
       state.addOrganisation(party1);
@@ -50,9 +50,12 @@ public class PartyRelationshipTest
          state = (ApplicationState) u.unmarshal(xmlFile);
 
          assertSame("should have one relationship", state.getRelationships().size(), 1);
-         assertEquals("first party role should be employer", state.getRelationships().get(0).getRelationshipType().getFrom().getDescription(),"Employer");
-         assertEquals("second party role should be employee", state.getRelationships().get(0).getRelationshipType().getTo().getDescription(),"Employee");
-
+         assertEquals("first party role should be employer",
+               state.getRelationships().get(0).getRelationshipType().getFrom().getDescription(),
+               "Employer");
+         assertEquals("second party role should be employee",
+               state.getRelationships().get(0).getRelationshipType().getTo().getDescription(),
+               "Employee");
 
       } catch (Exception e) {
          throw new IllegalStateException(e);
