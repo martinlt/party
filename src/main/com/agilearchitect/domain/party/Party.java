@@ -35,13 +35,13 @@ abstract public class Party extends IdentifiableObject
       return this.toRelationships;
    }
 
-   public void addFromRelationship(PartyRelationship relationship)
+   protected void addFromRelationship(PartyRelationship relationship)
    {
       if(!fromRelationships.contains(relationship))
          fromRelationships.add(relationship);
    }
 
-   public void addToRelationship(PartyRelationship relationship)
+   protected void addToRelationship(PartyRelationship relationship)
    {
       if(!toRelationships.contains(relationship))
          toRelationships.add(relationship);
