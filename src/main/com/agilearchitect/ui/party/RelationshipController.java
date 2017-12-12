@@ -2,6 +2,7 @@ package com.agilearchitect.ui.party;
 
 import com.agilearchitect.domain.party.Party;
 import com.agilearchitect.domain.party.PartyRelationship;
+import com.agilearchitect.domain.party.Person;
 import com.agilearchitect.domain.party.RoleType;
 import com.agilearchitect.domain.party.RoleTypeRelationship;
 
@@ -10,6 +11,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RelationshipController
 {
@@ -37,19 +42,28 @@ public class RelationshipController
    private void initialize()
    {
       // set a listener for when the user changes the relationship
-      // type. this allows us to dynamically set the from/to lists
+      // type. this allows us to dynamically set the 'from party' list
       // appropriate to the party types in the relationship.
       relationshipTypeField.getSelectionModel().selectedItemProperty()
             .addListener((observable, oldValue, newValue) -> handleSelectRelationship());
 
-      // bind the party from / to disable property to ensure they can only
+      // set a listener for when the user changes the 'from party'
+      // field. this allows us to dynamically set the 'to party' list
+      // filtering out relationships that already exist.
+      partyFromField.getSelectionModel().selectedItemProperty()
+            .addListener((observable, oldValue, newValue) -> handleSelectFromParty());
+
+      // bind the 'from' party disable property to ensure it can only
       // be selected when a relationship type has been chosen
       partyFromField.disableProperty().bind(relationshipTypeField.valueProperty().isNull());
-      partyToField.disableProperty().bind(relationshipTypeField.valueProperty().isNull());
+
+      // bind the 'to' party disable property to ensure it can only
+      // be selected when a relationship type has been chosen
+      partyToField.disableProperty().bind(partyFromField.valueProperty().isNull());
    }
 
    /**
-    * Set the from/to party combobox lists to the appropriate party type for the
+    * Set the 'from party' combobox list to the appropriate party type for the
     * relationship that has been selected.
     */
    @FXML
@@ -57,7 +71,6 @@ public class RelationshipController
    {
       RoleTypeRelationship r = relationshipTypeField.getValue();
       RoleType from = r.getFrom();
-      RoleType to = r.getTo();
 
       if (from.getPartyType().getDescription().equals("Organisation") == true) {
          partyFromField.setItems(FXCollections.observableArrayList(state.getOrganisations()));
@@ -65,12 +78,30 @@ public class RelationshipController
       if (from.getPartyType().getDescription().equals("Person") == true) {
          partyFromField.setItems(FXCollections.observableArrayList(state.getPeople()));
       }
+   }
+
+   /**
+    * Set the 'to party' combobox list filtering out relationships that already
+    * exist.
+    */
+   @FXML
+   private void handleSelectFromParty()
+   {
+      RoleTypeRelationship r = relationshipTypeField.getValue();
+      RoleType to = r.getTo();
+      List<Party> filteredList;
+
       if (to.getPartyType().getDescription().equals("Organisation") == true) {
-         partyToField.setItems(FXCollections.observableArrayList(state.getOrganisations()));
+         filteredList = state.getOrganisations().stream()
+               .filter(p -> !p.hasToRelationship(partyFromField.getValue()))
+               .collect(Collectors.toList());
+      } else { // Person
+         filteredList = state.getPeople().stream()
+               .filter(p -> !p.hasToRelationship(partyFromField.getValue()))
+               .collect(Collectors.toList());
+
       }
-      if (to.getPartyType().getDescription().equals("Person") == true) {
-         partyToField.setItems(FXCollections.observableArrayList(state.getPeople()));
-      }
+      partyToField.setItems(FXCollections.observableArrayList(filteredList));
    }
 
    /**
@@ -152,8 +183,8 @@ public class RelationshipController
    }
 
    /**
-    * Store a reference to the current application state and set
-    * the relationship type combobox with it's values.
+    * Store a reference to the current application state and set the
+    * relationship type combobox with it's values.
     *
     * @param state
     */

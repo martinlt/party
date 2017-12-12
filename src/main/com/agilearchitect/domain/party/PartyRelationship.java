@@ -85,6 +85,9 @@ public class PartyRelationship extends IdentifiableObject
    public void setFrom(Party from)
    {
       this.from = from;
+
+      if(from != null)
+         from.addFromRelationship(this);
    }
 
    @XmlIDREF
@@ -97,6 +100,9 @@ public class PartyRelationship extends IdentifiableObject
    public void setTo(Party to)
    {
       this.to = to;
+
+      if(to != null)
+         to.addToRelationship(this);
    }
 
    @XmlIDREF
