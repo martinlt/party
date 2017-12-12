@@ -103,9 +103,6 @@ public class PartyConfig
 
             // marshal to a file
             jaxbMarshaller.marshal(config, xmlFile);
-
-            // marshal to stdout
-            jaxbMarshaller.marshal(config, System.out);
          }
 
       } catch (Exception e) {

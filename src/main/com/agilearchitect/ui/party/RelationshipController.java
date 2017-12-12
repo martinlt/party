@@ -93,11 +93,13 @@ public class RelationshipController
 
       if (to.getPartyType().getDescription().equals("Organisation") == true) {
          filteredList = state.getOrganisations().stream()
-               .filter(p -> !p.hasToRelationship(partyFromField.getValue()))
+               .filter(p -> (p != partyFromField.getValue())
+                     && !p.hasToRelationship(partyFromField.getValue()))
                .collect(Collectors.toList());
       } else { // Person
          filteredList = state.getPeople().stream()
-               .filter(p -> !p.hasToRelationship(partyFromField.getValue()))
+               .filter(p -> (p != partyFromField.getValue())
+                     && !p.hasToRelationship(partyFromField.getValue()))
                .collect(Collectors.toList());
 
       }
