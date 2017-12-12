@@ -86,11 +86,16 @@ public class PartyConfig
 
             RoleType employer = new RoleType("Employer", organisation);
             RoleType employee = new RoleType("Employee", person);
+            RoleType teacher = new RoleType("Teacher", person);
+            RoleType student = new RoleType("Student", person);
 
             config.addRoleType(employer);
             config.addRoleType(employee);
+            config.addRoleType(teacher);;
+            config.addRoleType(student);
 
             config.addRoleTypeRelationship(new RoleTypeRelationship(employer, employee, "Employs"));
+            config.addRoleTypeRelationship(new RoleTypeRelationship(teacher, student, "Teaches"));
 
             JAXBContext jaxbContext = JAXBContext.newInstance(PartyConfig.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();

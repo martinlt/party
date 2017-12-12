@@ -1,6 +1,6 @@
 package com.agilearchitect.domain.party;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -14,15 +14,15 @@ public class Person extends Party
 {
    private String givenName = "";
    private String familyName = "";
-   private Date dateOfBirth;
-   private Date dateOfDeath;
+   private LocalDate dateOfBirth;
+   private LocalDate dateOfDeath;
 
    public Person()
    {
    }
 
-   public Person(PartyType type, String givenName, String familyName, Date dateOfBirth,
-         Date dateOfDeath)
+   public Person(PartyType type, String givenName, String familyName, LocalDate dateOfBirth,
+         LocalDate dateOfDeath)
    {
       super(type);
 
@@ -55,25 +55,41 @@ public class Person extends Party
    }
 
    @XmlElement
-   @XmlJavaTypeAdapter(DateTimeAdapter.class)
-   public Date getDateOfBirth()
+   @XmlJavaTypeAdapter(DateAdapter.class)
+   public LocalDate getDateOfBirth()
    {
       return dateOfBirth;
    }
 
-   public void setDateOfBirth(Date dateOfBirth)
+   public String getDateOfBirthString()
+   {
+      if(dateOfBirth == null)
+         return "";
+      else
+         return dateOfBirth.toString();
+   }
+
+   public void setDateOfBirth(LocalDate dateOfBirth)
    {
       this.dateOfBirth = dateOfBirth;
    }
 
    @XmlElement
-   @XmlJavaTypeAdapter(DateTimeAdapter.class)
-   public Date getDateOfDeath()
+   @XmlJavaTypeAdapter(DateAdapter.class)
+   public LocalDate getDateOfDeath()
    {
       return dateOfDeath;
    }
 
-   public void setDateOfDeath(Date dateOfDeath)
+   public String getDateOfDeathString()
+   {
+      if(dateOfDeath == null)
+         return "";
+      else
+         return dateOfDeath.toString();
+   }
+
+   public void setDateOfDeath(LocalDate dateOfDeath)
    {
       this.dateOfDeath = dateOfDeath;
    }

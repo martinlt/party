@@ -23,4 +23,17 @@ abstract public class Party extends IdentifiableObject
    {
       this.type = type;
    }
+
+   @Override
+   public String toString() {
+      if(this instanceof Organisation) {
+         Organisation o = (Organisation) this;
+         return o.getOrganisationName();
+      }
+      if(this instanceof Person) {
+         Person p = (Person) this;
+         return p.getGivenName() + " " + p.getFamilyName();
+      }
+      return "";
+   }
 }

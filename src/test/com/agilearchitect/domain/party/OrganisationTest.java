@@ -20,9 +20,6 @@ public class OrganisationTest
 
       Organisation party = new Organisation(config.getPartyTypes().get(0), "ABC Company Ltd");
 
-      System.out.println("info: id = " + party.getId() + " type = "
-            + party.getType().getDescription() + "(" + party.getType().getId() + ")");
-
       try {
          JAXBContext jaxbContext = JAXBContext.newInstance(Organisation.class);
          Marshaller jaxbMarshaller = jaxbContext.createMarshaller();

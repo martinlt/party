@@ -56,4 +56,12 @@ public class RoleTypeRelationship extends IdentifiableObject
    {
       this.description = description;
    }
+
+   @Override
+   public String toString() {
+      if((from == null) || (to == null))
+            return "";
+
+      return from.getDescription() + " to " + to.getDescription();
+   }
 }

@@ -3,8 +3,8 @@ package com.agilearchitect.domain.party;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
+import java.time.Month;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -20,10 +20,7 @@ public class PersonTest
       PartyConfig config = PartyConfig.loadConfig();
 
       Person party = new Person(config.getPartyTypes().get(1), "John", "Doe",
-            new GregorianCalendar(1970, Calendar.MARCH, 01, 18, 30).getTime(), null);
-
-      System.out.println("info: id = " + party.getId() + " type = "
-            + party.getType().getDescription() + "(" + party.getType().getId() + ")");
+            LocalDate.of(1970, Month.MARCH, 1), null);
 
       try {
          JAXBContext jaxbContext = JAXBContext.newInstance(Person.class);

@@ -3,8 +3,8 @@ package com.agilearchitect.domain.party;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
+import java.time.Month;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -12,19 +12,21 @@ import javax.xml.bind.Unmarshaller;
 
 import org.junit.Test;
 
+import com.agilearchitect.ui.party.ApplicationState;
+
 public class PartyRelationshipTest
 {
    @Test
    public void createRelationship() {
       PartyConfig config = PartyConfig.loadConfig();
 
-      StateWrapper state = new StateWrapper();
+      ApplicationState state = new ApplicationState();
 
       Organisation party1 = new Organisation(config.getPartyTypes().get(0), "ABC Company Ltd");
       Person party2 = new Person(config.getPartyTypes().get(1), "John", "Doe",
-            new GregorianCalendar(1970, Calendar.MARCH, 01, 18, 30).getTime(), null);
+            LocalDate.of(1970, Month.MARCH, 1), null);
 
-      PartyRelationship relationship = new PartyRelationship(new java.util.Date(), null, party1,
+      PartyRelationship relationship = new PartyRelationship(LocalDate.now(), null, party1,
             party2, config.getRoleTypeRelationships().get(0));
 
       state.setConfig(config);
@@ -33,7 +35,7 @@ public class PartyRelationshipTest
       state.addRelationship(relationship);
 
       try {
-         JAXBContext jaxbContext = JAXBContext.newInstance(StateWrapper.class);
+         JAXBContext jaxbContext = JAXBContext.newInstance(ApplicationState.class);
          Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
          jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
@@ -45,7 +47,7 @@ public class PartyRelationshipTest
          File xmlFile = new File("state.xml");
          assertTrue(xmlFile.exists());
 
-         state = (StateWrapper) u.unmarshal(xmlFile);
+         state = (ApplicationState) u.unmarshal(xmlFile);
 
          assertSame("should have one relationship", state.getRelationships().size(), 1);
          assertEquals("first party role should be employer", state.getRelationships().get(0).getRelationshipType().getFrom().getDescription(),"Employer");

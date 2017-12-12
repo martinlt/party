@@ -1,6 +1,6 @@
 package com.agilearchitect.domain.party;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -13,8 +13,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class Organisation extends Party
 {
    private String organisationName = "";
-   private Date dateOfInception = new java.util.Date();
-   private Date dateOfCessation;
+   private LocalDate dateOfInception = LocalDate.now();
+   private LocalDate dateOfCessation;
 
    public Organisation()
    {
@@ -39,25 +39,41 @@ public class Organisation extends Party
    }
 
    @XmlElement
-   @XmlJavaTypeAdapter(DateTimeAdapter.class)
-   public Date getDateOfInception()
+   @XmlJavaTypeAdapter(DateAdapter.class)
+   public LocalDate getDateOfInception()
    {
       return dateOfInception;
    }
 
-   public void setDateOfInception(Date dateOfInception)
+   public String getDateOfInceptionString()
+   {
+      if(dateOfInception == null)
+         return "";
+      else
+         return dateOfInception.toString();
+   }
+
+   public void setDateOfInception(LocalDate dateOfInception)
    {
       this.dateOfInception = dateOfInception;
    }
 
    @XmlElement
-   @XmlJavaTypeAdapter(DateTimeAdapter.class)
-   public Date getDateOfCessation()
+   @XmlJavaTypeAdapter(DateAdapter.class)
+   public LocalDate getDateOfCessation()
    {
       return dateOfCessation;
    }
 
-   public void setDateOfCessation(Date dateOfCessation)
+   public String getDateOfCessationString()
+   {
+      if(dateOfCessation == null)
+         return "";
+      else
+         return dateOfCessation.toString();
+   }
+
+   public void setDateOfCessation(LocalDate dateOfCessation)
    {
       this.dateOfCessation = dateOfCessation;
    }
