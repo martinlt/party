@@ -13,7 +13,12 @@ And finally, relationships can be drawn between these:
 
 <img src="doc/relationships.png" width="100%" height="100%" />
 
-This is based on the following class diagram:
+The model itself forms a flexible framework allowing different types of relationship to be modelled. Some examples of these include:
+ - Employment (between an Employer and Employee)
+ - Learning (between a Teacher and a Learner or Student)
+ - Social (between Parent and Child, or Sibling to Sibling)
+
+# Class Diagram
 
 <img src="doc/party.png" width="100%" height="100%" />
 
