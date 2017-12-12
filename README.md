@@ -1,7 +1,19 @@
 # Party
-This is an implementation of my first agile architect's pattern, addressing the universal theme of relationships between people and organisations.
+This is an implementation of the first agile architect's pattern, addressing the universal theme of relationships between people and organisations.
 
-Code here is based on the following class diagram:
+This model allows organisations to be defined:
+
+<img src="doc/organisations.png" width="100%" height="100%" />
+
+People can be defined:
+
+<img src="doc/people.png" width="100%" height="100%" />
+
+And finally, relationships can be drawn between these:
+
+<img src="doc/relationships.png" width="100%" height="100%" />
+
+This is based on the following class diagram:
 
 <img src="doc/party.png" width="100%" height="100%" />
 
