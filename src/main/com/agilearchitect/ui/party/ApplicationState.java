@@ -15,9 +15,12 @@ import com.agilearchitect.domain.party.Organisation;
 import com.agilearchitect.domain.party.PartyConfig;
 import com.agilearchitect.domain.party.PartyRelationship;
 import com.agilearchitect.domain.party.Person;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+
 
 @XmlRootElement(name = "applicationstate")
 @XmlAccessorType(XmlAccessType.NONE)
@@ -98,6 +101,10 @@ public class ApplicationState
 
          // marshal to a file
          jaxbMarshaller.marshal(this, xmlFile);
+
+         ObjectMapper objectMapper = new ObjectMapper();
+         String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
+         System.out.println(json);
       } catch (Exception e) {
          throw new IllegalStateException(e);
       }

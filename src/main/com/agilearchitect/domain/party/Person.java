@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @XmlRootElement(name = "person")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Person extends Party
@@ -61,6 +63,7 @@ public class Person extends Party
       return dateOfBirth;
    }
 
+   @JsonIgnore
    public String getDateOfBirthString()
    {
       if(dateOfBirth == null)
@@ -81,6 +84,7 @@ public class Person extends Party
       return dateOfDeath;
    }
 
+   @JsonIgnore
    public String getDateOfDeathString()
    {
       if(dateOfDeath == null)

@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlIDREF;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 abstract public class Party extends IdentifiableObject
 {
    private PartyType type;
@@ -22,6 +24,7 @@ abstract public class Party extends IdentifiableObject
    @XmlIDREF
    @XmlElementWrapper(name = "fromRelationships")
    @XmlElement(name = "fromRelationship", type = PartyRelationship.class)
+   @JsonBackReference
    public List<PartyRelationship> getFromRelationships() {
       return this.fromRelationships;
    }
@@ -29,6 +32,7 @@ abstract public class Party extends IdentifiableObject
    @XmlIDREF
    @XmlElementWrapper(name = "toRelationships")
    @XmlElement(name = "toRelationship", type = PartyRelationship.class)
+   @JsonBackReference
    public List<PartyRelationship> getToRelationships() {
       return this.toRelationships;
    }

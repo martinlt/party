@@ -11,6 +11,7 @@ import com.agilearchitect.domain.party.Person;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -51,6 +52,8 @@ public class SampleApplication extends Application
    {
       this.primaryStage = stage;
       stage.setTitle("Sample Application : Party Management");
+
+      this.primaryStage.getIcons().add(new Image("file:resources/images/party.png"));
 
       try {
          FXMLLoader loader = new FXMLLoader();

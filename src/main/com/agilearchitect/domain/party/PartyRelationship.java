@@ -9,6 +9,9 @@ import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @XmlRootElement(name = "partyRelationship")
 @XmlAccessorType(XmlAccessType.NONE)
 public class PartyRelationship extends IdentifiableObject
@@ -47,6 +50,7 @@ public class PartyRelationship extends IdentifiableObject
       this.effectiveFrom = effectiveFrom;
    }
 
+   @JsonIgnore
    public String getEffectiveFromString()
    {
       if(effectiveFrom == null)
@@ -67,6 +71,7 @@ public class PartyRelationship extends IdentifiableObject
       this.effectiveTo = effectiveTo;
    }
 
+   @JsonIgnore
    public String getEffectiveToString()
    {
       if(effectiveTo == null)
@@ -77,6 +82,7 @@ public class PartyRelationship extends IdentifiableObject
 
    @XmlIDREF
    @XmlElement(name = "from", type = Party.class)
+   @JsonManagedReference
    public Party getFrom()
    {
       return from;
@@ -92,6 +98,7 @@ public class PartyRelationship extends IdentifiableObject
 
    @XmlIDREF
    @XmlElement(name = "to", type = Party.class)
+   @JsonManagedReference
    public Party getTo()
    {
       return to;
