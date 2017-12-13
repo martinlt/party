@@ -7,7 +7,9 @@ public enum RoleKind {
    EMPLOYER(PartyKind.ORGANISATION, "Employer"),
    EMPLOYEE(PartyKind.PERSON, "Employee"),
    TEACHER(PartyKind.PERSON, "Teacher"),
-   STUDENT(PartyKind.PERSON, "Student");
+   STUDENT(PartyKind.PERSON, "Student"),
+   HUSBAND(PartyKind.PERSON, "Husband"),
+   WIFE(PartyKind.PERSON, "Wife");
 
    private PartyKind partyKind;
    private String description;

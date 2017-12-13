@@ -4,8 +4,9 @@ import javax.xml.bind.annotation.XmlEnum;
 
 @XmlEnum
 public enum RoleRelationshipKind {
-   EMPLOYS(RoleKind.EMPLOYER, RoleKind.EMPLOYEE, "Employs"),
-   TEACHES(RoleKind.TEACHER, RoleKind.STUDENT, "Teaches");
+   EMPLOYMENT(RoleKind.EMPLOYER, RoleKind.EMPLOYEE, "Employs"),
+   EDUCATION(RoleKind.TEACHER, RoleKind.STUDENT, "Teaches"),
+   MARRIAGE(RoleKind.HUSBAND, RoleKind.WIFE, "Married");
 
    private RoleKind from;
    private RoleKind to;

@@ -25,7 +25,7 @@ public class PartyRelationshipTest
       Person party2 = new Person("John", "Doe", LocalDate.of(1970, Month.MARCH, 1), null);
 
       PartyRelationship relationship = new PartyRelationship(LocalDate.now(), null, party1, party2,
-            RoleRelationshipKind.EMPLOYS);
+            RoleRelationshipKind.EMPLOYMENT);
 
       state.addOrganisation(party1);
       state.addPerson(party2);
@@ -47,9 +47,9 @@ public class PartyRelationshipTest
          state = (ApplicationState) u.unmarshal(xmlFile);
 
          assertSame("should have one relationship", state.getRelationships().size(), 1);
-         assertEquals("first party role should be employer", RoleRelationshipKind.EMPLOYS.getFrom(),
+         assertEquals("first party role should be employer", RoleRelationshipKind.EMPLOYMENT.getFrom(),
                RoleKind.EMPLOYER);
-         assertEquals("second party role should be employee", RoleRelationshipKind.EMPLOYS.getTo(),
+         assertEquals("second party role should be employee", RoleRelationshipKind.EMPLOYMENT.getTo(),
                RoleKind.EMPLOYEE);
 
       } catch (Exception e) {
