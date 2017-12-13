@@ -1,9 +1,10 @@
 package com.agilearchitect.ui.party;
 
 import com.agilearchitect.domain.party.Party;
+import com.agilearchitect.domain.party.PartyKind;
 import com.agilearchitect.domain.party.PartyRelationship;
-import com.agilearchitect.domain.party.RoleType;
-import com.agilearchitect.domain.party.RoleTypeRelationship;
+import com.agilearchitect.domain.party.RoleKind;
+import com.agilearchitect.domain.party.RoleRelationshipKind;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -11,13 +12,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class RelationshipController
 {
    @FXML
-   private ComboBox<RoleTypeRelationship> relationshipTypeField;
+   private ComboBox<RoleRelationshipKind> relationshipTypeField;
    @FXML
    private ComboBox<Party> partyFromField;
    @FXML
@@ -67,13 +70,13 @@ public class RelationshipController
    @FXML
    private void handleSelectRelationship()
    {
-      RoleTypeRelationship r = relationshipTypeField.getValue();
-      RoleType from = r.getFrom();
+      RoleRelationshipKind r = relationshipTypeField.getValue();
+      RoleKind from = r.getFrom();
 
-      if (from.getPartyType().getDescription().equals("Organisation") == true) {
+      if (from.getPartyKind() == PartyKind.ORGANISATION) {
          partyFromField.setItems(FXCollections.observableArrayList(state.getOrganisations()));
       }
-      if (from.getPartyType().getDescription().equals("Person") == true) {
+      if (from.getPartyKind() == PartyKind.PERSON) {
          partyFromField.setItems(FXCollections.observableArrayList(state.getPeople()));
       }
    }
@@ -85,11 +88,11 @@ public class RelationshipController
    @FXML
    private void handleSelectFromParty()
    {
-      RoleTypeRelationship r = relationshipTypeField.getValue();
-      RoleType to = r.getTo();
+      RoleRelationshipKind r = relationshipTypeField.getValue();
+      RoleKind to = r.getTo();
       List<Party> filteredList;
 
-      if (to.getPartyType().getDescription().equals("Organisation") == true) {
+      if (to.getPartyKind() == PartyKind.ORGANISATION) {
          filteredList = state.getOrganisations().stream()
                .filter(p -> (p != partyFromField.getValue())
                      && !p.hasToRelationship(partyFromField.getValue()))
@@ -193,6 +196,6 @@ public class RelationshipController
       this.state = state;
 
       relationshipTypeField.setItems(
-            FXCollections.observableArrayList(state.getConfig().getRoleTypeRelationships()));
+            FXCollections.observableArrayList(new ArrayList<RoleRelationshipKind>(EnumSet.allOf(RoleRelationshipKind.class))));
    }
 }

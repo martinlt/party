@@ -21,7 +21,7 @@ public class PartyRelationship extends IdentifiableObject
    private LocalDate effectiveTo;
    private Party from;
    private Party to;
-   private RoleTypeRelationship relationshipType;
+   private RoleRelationshipKind relationshipType;
 
    public PartyRelationship()
    {
@@ -29,7 +29,7 @@ public class PartyRelationship extends IdentifiableObject
    }
 
    public PartyRelationship(LocalDate effectiveFrom, LocalDate effectiveTo, Party from, Party to,
-         RoleTypeRelationship relationshipType)
+         RoleRelationshipKind relationshipType)
    {
       super();
       this.effectiveFrom = effectiveFrom;
@@ -47,7 +47,6 @@ public class PartyRelationship extends IdentifiableObject
       return effectiveFrom;
    }
 
-
    public void setEffectiveFrom(LocalDate effectiveFrom)
    {
       this.effectiveFrom = effectiveFrom;
@@ -56,7 +55,7 @@ public class PartyRelationship extends IdentifiableObject
    @JsonProperty("effectiveFrom")
    public String getEffectiveFromString()
    {
-      if(effectiveFrom == null)
+      if (effectiveFrom == null)
          return "";
       else
          return effectiveFrom.toString();
@@ -78,7 +77,7 @@ public class PartyRelationship extends IdentifiableObject
    @JsonProperty("effectiveTo")
    public String getEffectiveToString()
    {
-      if(effectiveTo == null)
+      if (effectiveTo == null)
          return "";
       else
          return effectiveTo.toString();
@@ -96,7 +95,7 @@ public class PartyRelationship extends IdentifiableObject
    {
       this.from = from;
 
-      if(from != null)
+      if (from != null)
          from.addFromRelationship(this);
    }
 
@@ -112,18 +111,17 @@ public class PartyRelationship extends IdentifiableObject
    {
       this.to = to;
 
-      if(to != null)
+      if (to != null)
          to.addToRelationship(this);
    }
 
-   @XmlIDREF
-   @XmlElement(name = "relationshipType", type = RoleTypeRelationship.class)
-   public RoleTypeRelationship getRelationshipType()
+   @XmlElement(name = "relationshipType", type = RoleRelationshipKind.class)
+   public RoleRelationshipKind getRelationshipType()
    {
       return relationshipType;
    }
 
-   public void setRelationshipType(RoleTypeRelationship relationshipType)
+   public void setRelationshipType(RoleRelationshipKind relationshipType)
    {
       this.relationshipType = relationshipType;
    }

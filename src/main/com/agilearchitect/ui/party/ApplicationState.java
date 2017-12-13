@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.agilearchitect.domain.party.Organisation;
-import com.agilearchitect.domain.party.PartyConfig;
 import com.agilearchitect.domain.party.PartyRelationship;
 import com.agilearchitect.domain.party.Person;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,9 +25,6 @@ import javafx.collections.ObservableList;
 @XmlAccessorType(XmlAccessType.NONE)
 public class ApplicationState
 {
-   @XmlElement(name = "config")
-   private PartyConfig config;
-
    @XmlElementWrapper(name = "people")
    @XmlElement(name = "person")
    private final ObservableList<Person> people = FXCollections.observableArrayList();
@@ -44,16 +40,6 @@ public class ApplicationState
    public ApplicationState()
    {
 
-   }
-
-   public PartyConfig getConfig()
-   {
-      return config;
-   }
-
-   public void setConfig(PartyConfig config)
-   {
-      this.config = config;
    }
 
    public ObservableList<Person> getPeople()
@@ -124,8 +110,8 @@ public class ApplicationState
             state = (ApplicationState) u.unmarshal(xmlFile);
          } else {
             state = new ApplicationState();
-            PartyConfig config = PartyConfig.loadConfig();
-            state.setConfig(config);
+//            PartyConfig config = PartyConfig.loadConfig();
+//            state.setConfig(config);
             state.save();
          }
 

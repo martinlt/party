@@ -88,7 +88,7 @@ public class ApplicationController
       fromColumn.setCellValueFactory(
             cellData -> new SimpleStringProperty(cellData.getValue().getFrom().toString()));
       typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
-            cellData.getValue().getRelationshipType().getDescription()));
+            cellData.getValue().getRelationshipType().toString()));
       toColumn.setCellValueFactory(
             cellData -> new SimpleStringProperty(cellData.getValue().getTo().toString()));
       dateFromColumn.setCellValueFactory(
