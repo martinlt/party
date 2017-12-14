@@ -8,16 +8,34 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlIDREF;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 abstract public class Party extends IdentifiableObject
 {
    private List<PartyRelationship> fromRelationships = new ArrayList<PartyRelationship>();
    private List<PartyRelationship> toRelationships = new ArrayList<PartyRelationship>();
 
+   private PartyKind type;
+
    public Party()
    {
 
    }
+
+   @JsonIgnore
+   public PartyKind getType()
+   {
+      return type;
+   }
+
+
+
+   public void setType(PartyKind type)
+   {
+      this.type = type;
+   }
+
+
 
    @XmlIDREF
    @XmlElementWrapper(name = "fromRelationships")

@@ -22,11 +22,14 @@ public class Person extends Party
 
    public Person()
    {
+      super.setType(PartyKind.PERSON);
    }
 
    public Person(String givenName, String familyName, LocalDate dateOfBirth,
          LocalDate dateOfDeath)
    {
+      super.setType(PartyKind.PERSON);
+
       this.familyName = familyName;
       this.givenName = givenName;
       this.dateOfBirth = dateOfBirth;

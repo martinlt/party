@@ -14,17 +14,20 @@ public enum RoleKind {
    private PartyKind partyKind;
    private String description;
 
-   private RoleKind(PartyKind partyKind, String description) {
+   private RoleKind(PartyKind partyKind, String description)
+   {
       this.partyKind = partyKind;
-       this.description = description;
+      this.description = description;
    }
 
    @Override
-   public String toString() {
-       return description;
+   public String toString()
+   {
+      return description;
    }
 
-   public PartyKind getPartyKind() {
+   public PartyKind getPartyKind()
+   {
       return this.partyKind;
    }
 }

@@ -29,14 +29,15 @@ public class PartyRelationship extends IdentifiableObject
    }
 
    public PartyRelationship(LocalDate effectiveFrom, LocalDate effectiveTo, Party from, Party to,
-         RoleRelationshipKind relationshipType)
+         RoleRelationshipKind relationshipType) throws InvalidRelationshipTarget
    {
       super();
       this.effectiveFrom = effectiveFrom;
       this.effectiveTo = effectiveTo;
-      this.from = from;
-      this.to = to;
       this.relationshipType = relationshipType;
+      this.setFrom(from);
+      this.setTo(to);
+
    }
 
    @XmlElement
@@ -91,12 +92,16 @@ public class PartyRelationship extends IdentifiableObject
       return from;
    }
 
-   public void setFrom(Party from)
+   public void setFrom(Party from) throws InvalidRelationshipTarget
    {
       this.from = from;
 
-      if (from != null)
+      if (from != null) {
+         if(from.getType() != relationshipType.getFrom().getPartyKind())
+            throw new InvalidRelationshipTarget(relationshipType);
+
          from.addFromRelationship(this);
+      }
    }
 
    @XmlIDREF
@@ -107,12 +112,16 @@ public class PartyRelationship extends IdentifiableObject
       return to;
    }
 
-   public void setTo(Party to)
+   public void setTo(Party to) throws InvalidRelationshipTarget
    {
       this.to = to;
 
-      if (to != null)
+      if (to != null) {
+         if(to.getType() != relationshipType.getTo().getPartyKind())
+            throw new InvalidRelationshipTarget(relationshipType);
+
          to.addToRelationship(this);
+      }
    }
 
    @XmlElement(name = "relationshipType", type = RoleRelationshipKind.class)

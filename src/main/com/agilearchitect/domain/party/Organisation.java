@@ -21,10 +21,13 @@ public class Organisation extends Party
 
    public Organisation()
    {
+      super.setType(PartyKind.ORGANISATION);
    }
 
    public Organisation(String organisationName)
    {
+      super.setType(PartyKind.ORGANISATION);
+
       this.organisationName = organisationName;
    }
 

@@ -1,5 +1,6 @@
 package com.agilearchitect.ui.party;
 
+import com.agilearchitect.domain.party.InvalidRelationshipTarget;
 import com.agilearchitect.domain.party.Party;
 import com.agilearchitect.domain.party.PartyKind;
 import com.agilearchitect.domain.party.PartyRelationship;
@@ -15,6 +16,8 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class RelationshipController
@@ -144,13 +147,17 @@ public class RelationshipController
    private void handleOk()
    {
       if (isInputValid()) {
-         relationship.setRelationshipType(relationshipTypeField.getValue());
-         relationship.setFrom(partyFromField.getValue());
-         relationship.setTo(partyToField.getValue());
-         relationship.setEffectiveFrom(effectiveFromField.getValue());
-         relationship.setEffectiveTo(effectiveToField.getValue());
-         okClicked = true;
-         dialogStage.close();
+         try {
+            relationship.setRelationshipType(relationshipTypeField.getValue());
+            relationship.setFrom(partyFromField.getValue());
+            relationship.setTo(partyToField.getValue());
+            relationship.setEffectiveFrom(effectiveFromField.getValue());
+            relationship.setEffectiveTo(effectiveToField.getValue());
+            okClicked = true;
+            dialogStage.close();
+         } catch (InvalidRelationshipTarget e) {
+            Logger.getLogger(RelationshipController.class.getName()).log(Level.SEVERE, null, e);
+         }
       }
    }
 
@@ -195,7 +202,7 @@ public class RelationshipController
    {
       this.state = state;
 
-      relationshipTypeField.setItems(
-            FXCollections.observableArrayList(new ArrayList<RoleRelationshipKind>(EnumSet.allOf(RoleRelationshipKind.class))));
+      relationshipTypeField.setItems(FXCollections.observableArrayList(
+            new ArrayList<RoleRelationshipKind>(EnumSet.allOf(RoleRelationshipKind.class))));
    }
 }

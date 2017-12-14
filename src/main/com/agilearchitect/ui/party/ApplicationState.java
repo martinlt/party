@@ -19,8 +19,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
-
 @XmlRootElement(name = "applicationstate")
 @XmlAccessorType(XmlAccessType.NONE)
 public class ApplicationState
@@ -35,7 +33,8 @@ public class ApplicationState
 
    @XmlElementWrapper(name = "relationships")
    @XmlElement(name = "relationship")
-   private final ObservableList<PartyRelationship> relationships = FXCollections.observableArrayList();
+   private final ObservableList<PartyRelationship> relationships = FXCollections
+         .observableArrayList();
 
    public ApplicationState()
    {
@@ -74,30 +73,39 @@ public class ApplicationState
 
    public static ApplicationState load()
    {
-      return load("applicationstate.xml");
+      return unmarshalXml(new File("applicationstate.xml"));
    }
 
    public void save()
    {
+      this.marshalToXml(new File("applicationstate.xml"));
+   }
+
+   public void marshalToXml(File file)
+   {
       try {
-         File xmlFile = new File("applicationstate.xml");
          JAXBContext jaxbContext = JAXBContext.newInstance(ApplicationState.class);
          Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
          jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+         jaxbMarshaller.marshal(this, file);
+      } catch (Exception e) {
+         throw new IllegalStateException(e);
+      }
+   }
 
-         // marshal to file as xml
-         jaxbMarshaller.marshal(this, xmlFile);
-
+   public void marshalToJson(File file)
+   {
+      try {
          // marshal to file as json
          ObjectMapper objectMapper = new ObjectMapper();
-         objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("applicationstate.json"), this);
+         objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, this);
 
       } catch (Exception e) {
          throw new IllegalStateException(e);
       }
    }
 
-   private static ApplicationState load(String filename)
+   public static ApplicationState unmarshalXml(File file)
    {
       ApplicationState state;
 
@@ -105,14 +113,33 @@ public class ApplicationState
          JAXBContext jc = JAXBContext.newInstance(ApplicationState.class);
          Unmarshaller u = jc.createUnmarshaller();
 
-         File xmlFile = new File(filename);
-         if (xmlFile.exists()) {
-            state = (ApplicationState) u.unmarshal(xmlFile);
+         if (file.length() != 0) {
+            state = (ApplicationState) u.unmarshal(file);
          } else {
             state = new ApplicationState();
-//            PartyConfig config = PartyConfig.loadConfig();
-//            state.setConfig(config);
-            state.save();
+         }
+
+      } catch (Exception e) {
+         throw new IllegalStateException(e);
+      }
+      return state;
+   }
+
+   public static ApplicationState unmarshalJson(File file)
+   {
+      ApplicationState state;
+
+      try {
+         ObjectMapper mapper = new ObjectMapper();
+
+         if (file.length() != 0) {
+            state = mapper.readValue(file, ApplicationState.class);
+
+            if (state == null)
+               state = new ApplicationState();
+
+         } else {
+            state = new ApplicationState();
          }
 
       } catch (Exception e) {
