@@ -14,7 +14,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.agilearchitect.domain.party.Organisation;
 import com.agilearchitect.domain.party.PartyRelationship;
 import com.agilearchitect.domain.party.Person;
-import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.eclipse.persistence.jaxb.MarshallerProperties;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -79,6 +81,7 @@ public class ApplicationState
    public void save()
    {
       this.marshalToXml(new File("applicationstate.xml"));
+      this.marshalToJson(new File("applicationstate.json"));
    }
 
    public void marshalToXml(File file)
@@ -97,9 +100,15 @@ public class ApplicationState
    {
       try {
          // marshal to file as json
-         ObjectMapper objectMapper = new ObjectMapper();
-         objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, this);
+//         ObjectMapper objectMapper = new ObjectMapper();
+//         objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, this);
 
+         JAXBContext jaxbContext = JAXBContext.newInstance(ApplicationState.class);
+         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+         jaxbMarshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
+         jaxbMarshaller.marshal(this, file);
       } catch (Exception e) {
          throw new IllegalStateException(e);
       }
@@ -127,21 +136,29 @@ public class ApplicationState
 
    public static ApplicationState unmarshalJson(File file)
    {
-      ApplicationState state;
+      ApplicationState state = new ApplicationState();
 
       try {
-         ObjectMapper mapper = new ObjectMapper();
+//         ObjectMapper mapper = new ObjectMapper();
+//
+//         if (file.length() != 0) {
+//            state = mapper.readValue(file, ApplicationState.class);
+//
+//            if (state == null)
+//               state = new ApplicationState();
+//
+//         } else {
+//            state = new ApplicationState();
+//         }
+         JAXBContext jc = JAXBContext.newInstance(ApplicationState.class);
+         Unmarshaller u = jc.createUnmarshaller();
+         u.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
 
          if (file.length() != 0) {
-            state = mapper.readValue(file, ApplicationState.class);
-
-            if (state == null)
-               state = new ApplicationState();
-
+            state = (ApplicationState) u.unmarshal(file);
          } else {
             state = new ApplicationState();
          }
-
       } catch (Exception e) {
          throw new IllegalStateException(e);
       }

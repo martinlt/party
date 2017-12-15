@@ -9,10 +9,6 @@ import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 @XmlRootElement(name = "partyRelationship")
 @XmlAccessorType(XmlAccessType.NONE)
 public class PartyRelationship extends IdentifiableObject
@@ -42,7 +38,6 @@ public class PartyRelationship extends IdentifiableObject
 
    @XmlElement
    @XmlJavaTypeAdapter(DateAdapter.class)
-   @JsonIgnore
    public LocalDate getEffectiveFrom()
    {
       return effectiveFrom;
@@ -53,7 +48,6 @@ public class PartyRelationship extends IdentifiableObject
       this.effectiveFrom = effectiveFrom;
    }
 
-   @JsonProperty("effectiveFrom")
    public String getEffectiveFromString()
    {
       if (effectiveFrom == null)
@@ -64,7 +58,6 @@ public class PartyRelationship extends IdentifiableObject
 
    @XmlElement
    @XmlJavaTypeAdapter(DateAdapter.class)
-   @JsonIgnore
    public LocalDate getEffectiveTo()
    {
       return effectiveTo;
@@ -75,7 +68,6 @@ public class PartyRelationship extends IdentifiableObject
       this.effectiveTo = effectiveTo;
    }
 
-   @JsonProperty("effectiveTo")
    public String getEffectiveToString()
    {
       if (effectiveTo == null)
@@ -86,7 +78,6 @@ public class PartyRelationship extends IdentifiableObject
 
    @XmlIDREF
    @XmlElement(name = "from", type = Party.class)
-   @JsonManagedReference
    public Party getFrom()
    {
       return from;
@@ -97,7 +88,7 @@ public class PartyRelationship extends IdentifiableObject
       this.from = from;
 
       if (from != null) {
-         if(from.getType() != relationshipType.getFrom().getPartyKind())
+         if(from.getPartyType() != relationshipType.getFrom().getPartyKind())
             throw new InvalidRelationshipTarget(relationshipType);
 
          from.addFromRelationship(this);
@@ -106,7 +97,6 @@ public class PartyRelationship extends IdentifiableObject
 
    @XmlIDREF
    @XmlElement(name = "to", type = Party.class)
-   @JsonManagedReference
    public Party getTo()
    {
       return to;
@@ -117,7 +107,7 @@ public class PartyRelationship extends IdentifiableObject
       this.to = to;
 
       if (to != null) {
-         if(to.getType() != relationshipType.getTo().getPartyKind())
+         if(to.getPartyType() != relationshipType.getTo().getPartyKind())
             throw new InvalidRelationshipTarget(relationshipType);
 
          to.addToRelationship(this);

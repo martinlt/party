@@ -8,8 +8,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @XmlRootElement(name = "organisation")
 @XmlAccessorType(XmlAccessType.NONE)
@@ -21,12 +19,12 @@ public class Organisation extends Party
 
    public Organisation()
    {
-      super.setType(PartyKind.ORGANISATION);
+      super.setPartyType(PartyKind.ORGANISATION);
    }
 
    public Organisation(String organisationName)
    {
-      super.setType(PartyKind.ORGANISATION);
+      super.setPartyType(PartyKind.ORGANISATION);
 
       this.organisationName = organisationName;
    }
@@ -44,13 +42,11 @@ public class Organisation extends Party
 
    @XmlElement
    @XmlJavaTypeAdapter(DateAdapter.class)
-   @JsonIgnore
    public LocalDate getDateOfInception()
    {
       return dateOfInception;
    }
 
-   @JsonProperty("dateOfInception")
    public String getDateOfInceptionString()
    {
       if(dateOfInception == null)
@@ -66,13 +62,11 @@ public class Organisation extends Party
 
    @XmlElement
    @XmlJavaTypeAdapter(DateAdapter.class)
-   @JsonIgnore
    public LocalDate getDateOfCessation()
    {
       return dateOfCessation;
    }
 
-   @JsonProperty("dateOfCessation")
    public String getDateOfCessationString()
    {
       if(dateOfCessation == null)

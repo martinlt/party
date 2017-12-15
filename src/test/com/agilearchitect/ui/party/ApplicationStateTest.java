@@ -70,21 +70,21 @@ public class ApplicationStateTest
       assertEquals(state2.getRelationships().size(), 1);
    }
 
-//   @Test
-//   public void marshalAndUnmarshalJson()
-//   {
-//      ApplicationState state = new ApplicationState();
-//
-//      state.addPerson(person);
-//      state.addOrganisation(organisation);
-//      state.addRelationship(relationship);
-//
-//      state.marshalToJson(file);
-//
-//      ApplicationState state2 = ApplicationState.unmarshalJson(file);
-//
-//      assertEquals(state2.getPeople().size(), 1);
-//      assertEquals(state2.getOrganisations().size(), 1);
-//      assertEquals(state2.getRelationships().size(), 1);
-//   }
+   @Test
+   public void marshalAndUnmarshalJson()
+   {
+      ApplicationState state = new ApplicationState();
+
+      state.addPerson(person);
+      state.addOrganisation(organisation);
+      state.addRelationship(relationship);
+
+      state.marshalToJson(file);
+
+      ApplicationState state2 = ApplicationState.unmarshalJson(file);
+
+      assertEquals(state2.getPeople().size(), 1);
+      assertEquals(state2.getOrganisations().size(), 1);
+      assertEquals(state2.getRelationships().size(), 1);
+   }
 }
