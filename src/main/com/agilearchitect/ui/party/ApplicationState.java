@@ -99,10 +99,6 @@ public class ApplicationState
    public void marshalToJson(File file)
    {
       try {
-         // marshal to file as json
-//         ObjectMapper objectMapper = new ObjectMapper();
-//         objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, this);
-
          JAXBContext jaxbContext = JAXBContext.newInstance(ApplicationState.class);
          Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
          jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -139,17 +135,6 @@ public class ApplicationState
       ApplicationState state = new ApplicationState();
 
       try {
-//         ObjectMapper mapper = new ObjectMapper();
-//
-//         if (file.length() != 0) {
-//            state = mapper.readValue(file, ApplicationState.class);
-//
-//            if (state == null)
-//               state = new ApplicationState();
-//
-//         } else {
-//            state = new ApplicationState();
-//         }
          JAXBContext jc = JAXBContext.newInstance(ApplicationState.class);
          Unmarshaller u = jc.createUnmarshaller();
          u.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");

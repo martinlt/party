@@ -10,10 +10,15 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 public class PersonTest
 {
+   @Rule
+   public TemporaryFolder testFolder = new TemporaryFolder();
+
    @Test
    public void createPerson()
    {
@@ -25,14 +30,14 @@ public class PersonTest
          jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
          // marshal to a file
-         jaxbMarshaller.marshal(party, new File("person.xml"));
+         File file = testFolder.newFile();
+         jaxbMarshaller.marshal(party, file);
 
          Unmarshaller u = jaxbContext.createUnmarshaller();
 
-         File xmlFile = new File("person.xml");
-         assertTrue(xmlFile.exists());
+         assertTrue(file.exists());
 
-         party = (Person) u.unmarshal(xmlFile);
+         party = (Person) u.unmarshal(file);
 
          assertEquals("family name should match", party.getFamilyName(), "Doe");
 

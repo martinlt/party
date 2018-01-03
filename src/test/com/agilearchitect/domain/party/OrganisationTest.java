@@ -8,10 +8,15 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 public class OrganisationTest
 {
+
+   @Rule
+   public TemporaryFolder testFolder = new TemporaryFolder();
 
    @Test
    public void createOrganisation()
@@ -24,14 +29,14 @@ public class OrganisationTest
          jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
          // marshal to a file
-         jaxbMarshaller.marshal(party, new File("organisation.xml"));
+         File file = testFolder.newFile();
+         jaxbMarshaller.marshal(party, file);
 
          Unmarshaller u = jaxbContext.createUnmarshaller();
 
-         File xmlFile = new File("organisation.xml");
-         assertTrue(xmlFile.exists());
+         assertTrue(file.exists());
 
-         party = (Organisation) u.unmarshal(xmlFile);
+         party = (Organisation) u.unmarshal(file);
 
          assertEquals("organisation name should match", party.getOrganisationName(),
                "ABC Company Ltd");
